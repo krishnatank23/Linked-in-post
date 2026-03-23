@@ -1,0 +1,10 @@
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+
+# Project-specific secret files
+backend/.env
+
+# Python virtual environment
+.venv/
