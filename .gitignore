@@ -8,3 +8,14 @@ backend/.env
 
 # Python virtual environment
 .venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
