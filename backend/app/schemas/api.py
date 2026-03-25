@@ -1,16 +1,12 @@
 from pydantic import BaseModel, EmailStr, Field
 
 
-class RegisterRequest(BaseModel):
-    email: EmailStr
-    full_name: str = Field(min_length=2, max_length=255)
-    password: str = Field(min_length=6, max_length=255)
-
-
 class RegisterResponse(BaseModel):
     user_id: int
     email: EmailStr
     full_name: str
+    profile_id: int | None = None
+    profile_source_type: str | None = None
 
 
 class LoginRequest(BaseModel):
@@ -22,6 +18,9 @@ class LoginResponse(BaseModel):
     user_id: int
     email: EmailStr
     full_name: str
+    profile_exists: bool = False
+    profile_id: int | None = None
+    profile_source_type: str | None = None
 
 
 class RunAnalysisRequest(BaseModel):

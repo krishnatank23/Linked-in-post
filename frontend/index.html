@@ -3,275 +3,134 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LinkedIn Branding Assistant</title>
+    <title>Resume-First Branding Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="bg-layer" aria-hidden="true">
-      <span class="blob b1"></span>
-      <span class="blob b2"></span>
-      <span class="blob b3"></span>
-      <span class="grid"></span>
+      <div class="blob blob-a"></div>
+      <div class="blob blob-b"></div>
+      <div class="grid-overlay"></div>
     </div>
 
-    <!-- Welcome Page -->
-    <div id="welcomePage" class="page active">
-      <main class="shell">
-        <header class="hero card">
-          <p class="kicker">Agentic AI</p>
-          <h1>LinkedIn Personal Branding Assistant</h1>
-          <p>Unlock your LinkedIn potential with AI-powered analysis. Discover what top influencers are doing and level up your content strategy.</p>
-          <div class="hero-pill-row">
-            <span class="hero-pill">Smart Profile Scan</span>
-            <span class="hero-pill">Influencer Radar</span>
-            <span class="hero-pill">Post Studio</span>
+    <main class="app-shell">
+      <section id="authView" class="auth-wrap active">
+        <div class="auth-info panel">
+          <p class="eyebrow">LinkedIn Personal Branding Assistant</p>
+          <h1>Register once with your resume. Login anytime without re-upload.</h1>
+          <p>
+            Your resume profile is stored in the backend database at registration and reused for all later analysis,
+            strategy, and post generation steps.
+          </p>
+          <ul class="feature-list">
+            <li>Email + password authentication</li>
+            <li>Email remains your primary account identity</li>
+            <li>Resume/LinkedIn file stored as processed profile data</li>
+          </ul>
+        </div>
+
+        <div class="auth-forms panel">
+          <div class="tab-row">
+            <button id="showRegisterBtn" class="tab active" type="button">Register</button>
+            <button id="showLoginBtn" class="tab" type="button">Login</button>
           </div>
-        </header>
 
-        <section class="welcome-actions card">
-          <div class="action-grid">
-            <button id="startLogin" class="btn primary large">Login</button>
-            <button id="startRegister" class="btn accent large">Register</button>
-          </div>
-        </section>
-
-        <section class="features card">
-          <h2>How It Works</h2>
-          <div class="feature-list">
-            <div class="feature">
-              <span class="number">1</span>
-              <h3>Register & Upload</h3>
-              <p>Create your account and upload your LinkedIn profile or resume.</p>
-            </div>
-            <div class="feature">
-              <span class="number">2</span>
-              <h3>Run Analysis</h3>
-              <p>Our AI agents analyze your profile and discover relevant influencers in your field.</p>
-            </div>
-            <div class="feature">
-              <span class="number">3</span>
-              <h3>Get Insights</h3>
-              <p>View competitor insights, gaps, and actionable strategies to grow.</p>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <!-- Login Page -->
-    <div id="loginPage" class="page">
-      <main class="shell auth-shell">
-        <header class="hero card slim">
-          <button class="btn ghost" id="backFromLogin">← Back</button>
-          <h1>Welcome Back</h1>
-        </header>
-
-        <section class="card auth-card">
-          <form id="loginForm" class="form-stack">
-            <div class="demo-actions">
-              <button id="fillLoginDemo" class="btn ghost" type="button">Use Demo Login</button>
-            </div>
-            <label>
-              Email
-              <input name="email" type="email" placeholder="you@example.com" required />
-            </label>
-            <label>
-              Password
-              <input name="password" type="password" placeholder="••••••••" required />
-            </label>
-            <button class="btn primary" type="submit">Login</button>
-          </form>
-
-          <div class="status" id="loginStatus"></div>
-        </section>
-      </main>
-    </div>
-
-    <!-- Register Page -->
-    <div id="registerPage" class="page">
-      <main class="shell auth-shell">
-        <header class="hero card slim">
-          <button class="btn ghost" id="backFromRegister">← Back</button>
-          <h1>Create Your Account</h1>
-          <p>Join LinkedIn's AI-powered branding community.</p>
-        </header>
-
-        <section class="card auth-card">
-          <form id="registerForm" class="form-stack">
-            <div class="demo-actions">
-              <button id="fillRegisterDemo" class="btn ghost" type="button">Use Demo Registration</button>
-            </div>
+          <form id="registerForm" class="form active">
             <label>
               Full Name
-              <input name="full_name" type="text" placeholder="John Doe" required minlength="2" />
+              <input type="text" name="full_name" required minlength="2" />
             </label>
             <label>
               Email
-              <input name="email" type="email" placeholder="you@example.com" required />
+              <input type="email" name="email" required />
             </label>
             <label>
               Password
-              <input name="password" type="password" placeholder="••••••••" required minlength="6" />
+              <div class="password-row">
+                <input id="registerPassword" type="password" name="password" required minlength="6" />
+                <button class="toggle-pass" type="button" data-target="registerPassword">Show</button>
+              </div>
             </label>
             <label>
               Confirm Password
-              <input name="password_confirm" type="password" placeholder="••••••••" required />
+              <div class="password-row">
+                <input id="registerPasswordConfirm" type="password" name="password_confirm" required minlength="6" />
+                <button class="toggle-pass" type="button" data-target="registerPasswordConfirm">Show</button>
+              </div>
             </label>
             <label>
-              LinkedIn Profile Export (JSON) or Resume (PDF/DOCX)
-              <input id="profileFileReg" name="profile_file" type="file" accept=".json,.pdf,.docx" required />
+              Resume / LinkedIn File (PDF, DOCX, JSON)
+              <input id="registerProfileFile" type="file" required accept=".pdf,.docx,.json" />
             </label>
-            <button class="btn primary" type="submit">Create Account & Upload</button>
-            <p class="demo-note">Demo fills all text fields automatically. Please choose a profile file manually because browsers do not allow auto-filling file uploads.</p>
+            <button id="registerBtn" class="btn btn-primary" type="submit">Create Account + Save Resume</button>
           </form>
 
-          <div class="status" id="registerStatus"></div>
-        </section>
-      </main>
-    </div>
+          <form id="loginForm" class="form">
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Password
+              <div class="password-row">
+                <input id="loginPassword" type="password" name="password" required minlength="6" />
+                <button class="toggle-pass" type="button" data-target="loginPassword">Show</button>
+              </div>
+            </label>
+            <button id="loginBtn" class="btn btn-primary" type="submit">Login</button>
+          </form>
 
-    <!-- Dashboard Page -->
-    <div id="dashboardPage" class="page">
-      <header class="dashboard-header card">
-        <div class="header-content">
-          <h1>Dashboard</h1>
-          <p id="userGreeting">Welcome!</p>
+          <p id="authStatus" class="status"></p>
         </div>
-        <button id="logout" class="btn ghost">Logout</button>
-      </header>
+      </section>
 
-      <main class="shell dashboard-shell">
-        <section class="card ai-companion-card">
-          <div class="ai-companion-head">
-            <h2>Playful AI Guide</h2>
-            <span class="companion-dot"></span>
+      <section id="dashboardView" class="dashboard-wrap">
+        <header class="panel topbar">
+          <div>
+            <p class="eyebrow">Session</p>
+            <h2 id="welcomeText">Welcome</h2>
           </div>
-          <p id="aiCompanionText">Tip: Start with Run Full Analysis to instantly get your first influencer list.</p>
-          <div class="companion-actions">
-            <button id="aiTipBtn" class="btn ghost" type="button">New Tip</button>
-            <button id="playfulModeBtn" class="btn ghost" type="button">Toggle Playful Mode</button>
-            <button id="runGuideBtn" class="btn ghost" type="button">Guide Me</button>
+          <div class="topbar-actions">
+            <button id="refreshBtn" class="btn btn-soft" type="button">Refresh</button>
+            <button id="logoutBtn" class="btn btn-ghost" type="button">Logout</button>
           </div>
-        </section>
+        </header>
 
-        <section class="card workflow-card">
-          <h2>Analysis Workflow</h2>
-          <div class="workflow-steps">
-            <span>1. Upload</span>
-            <span>2. Analyze</span>
-            <span>3. Explore</span>
-            <span>4. Strategy</span>
-          </div>
-          <div class="workflow-buttons">
-            <button id="runAnalysisBtn" class="btn primary">Run Full Analysis</button>
-            <button id="loadInfluencersBtn" class="btn accent">View Influencers</button>
-            <button id="loadGapAnalysisBtn" class="btn">View Gap Analysis</button>
-            <button id="generateStrategyBtn" class="btn">Generate Strategy</button>
-          </div>
-        </section>
+        <div class="dashboard-grid">
+          <article class="panel">
+            <h3>Profile From Database</h3>
+            <div id="profileMeta" class="kv"></div>
+            <p id="profileStatus" class="status"></p>
+          </article>
 
-        <section class="card profile-upload-card" id="profileUploadCard">
-          <h2>Profile Upload</h2>
-          <p class="upload-help">If analysis says profile not found, upload your profile here and run analysis again.</p>
-          <form id="dashboardUploadForm" class="form-stack">
-            <label>
-              Upload LinkedIn Export (JSON) or Resume (PDF/DOCX)
-              <input id="dashboardProfileFile" name="dashboard_profile_file" type="file" accept=".json,.pdf,.docx" required />
-            </label>
-            <button id="dashboardUploadBtn" class="btn primary" type="submit">Upload Profile Now</button>
-          </form>
-          <div class="status" id="dashboardUploadStatus"></div>
-        </section>
-
-        <section class="card notification-card">
-          <h2>Outlook Notifications</h2>
-          <form id="notificationForm" class="form-stack">
-            <label>
-              Outlook Email
-              <input id="notifEmail" type="email" placeholder="you@outlook.com" required />
-            </label>
-            <div class="notification-grid">
-              <label>
-                Timezone
-                <select id="notifTimezone" required>
-                  <option value="UTC">UTC</option>
-                  <option value="Asia/Kolkata">Asia/Kolkata</option>
-                  <option value="Europe/London">Europe/London</option>
-                  <option value="America/New_York">America/New_York</option>
-                  <option value="America/Los_Angeles">America/Los_Angeles</option>
-                  <option value="Australia/Sydney">Australia/Sydney</option>
-                </select>
-              </label>
-              <label>
-                Preferred Hour
-                <input id="notifHour" type="number" min="0" max="23" value="9" required />
-              </label>
-              <label>
-                Cadence (days)
-                <input id="notifCadence" type="number" min="1" max="14" value="3" required />
-              </label>
+          <article class="panel">
+            <h3>Pipeline Actions</h3>
+            <div class="action-list">
+              <button id="runPipelineBtn" class="btn btn-primary" type="button">Run Full Pipeline</button>
+              <button id="loadInfluencersBtn" class="btn btn-soft" type="button">Load Influencers</button>
+              <button id="genStrategyBtn" class="btn btn-soft" type="button">Generate Strategy</button>
             </div>
-
-            <fieldset class="weekday-picker">
-              <legend>Preferred Days</legend>
-              <label><input type="checkbox" value="0" checked />Mon</label>
-              <label><input type="checkbox" value="1" checked />Tue</label>
-              <label><input type="checkbox" value="2" checked />Wed</label>
-              <label><input type="checkbox" value="3" checked />Thu</label>
-              <label><input type="checkbox" value="4" checked />Fri</label>
-              <label><input type="checkbox" value="5" />Sat</label>
-              <label><input type="checkbox" value="6" />Sun</label>
-            </fieldset>
-
-            <label class="inline-check">
-              <input id="notifEnabled" type="checkbox" checked />
-              Enable notifications
-            </label>
-
-            <div class="companion-actions">
-              <button id="saveNotifBtn" class="btn primary" type="submit">Save Notification Settings</button>
-              <button id="sendNotifBtn" class="btn accent" type="button">Send Test Notification</button>
-            </div>
-          </form>
-          <div class="status" id="notifStatus"></div>
-        </section>
-
-        <section class="card influencers-card">
-          <h2>Top Influencers</h2>
-          <div id="influencersList" class="influencers-list">
-            <p class="empty-state">Run analysis to discover relevant influencers.</p>
-          </div>
-        </section>
-
-        <section class="card post-card">
-          <h2>Generate Content Post</h2>
-          <form id="postForm" class="form-stack">
             <label>
               Post Topic
-              <input id="postTopic" type="text" placeholder="e.g., AI in B2B marketing" required />
+              <input id="postTopic" type="text" placeholder="AI career growth" />
             </label>
-            <label>
-              Objective
-              <input id="postObjective" type="text" value="engagement" />
-            </label>
-            <label>
-              Media Context (Optional)
-              <input id="mediaContext" type="text" placeholder="e.g., Conference keynote image" />
-            </label>
-            <button class="btn primary" type="submit">Generate Post</button>
-          </form>
-        </section>
+            <button id="genPostBtn" class="btn btn-primary" type="button">Generate Post</button>
+          </article>
+        </div>
 
-      </main>
-    </div>
+        <section class="panel output-panel">
+          <h3>Output</h3>
+          <pre id="outputBox"></pre>
+        </section>
+      </section>
+    </main>
 
     <script src="script.js"></script>
   </body>
 </html>
-

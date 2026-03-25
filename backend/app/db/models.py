@@ -52,6 +52,45 @@ class Profile(Base, TimestampMixin):
     media_metadata: Mapped[list[dict]] = mapped_column(JSON, default=list)
 
     user: Mapped["User"] = relationship(back_populates="profiles")
+    linkedin_cache: Mapped["LinkedInProfileCache"] = relationship(back_populates="profile", uselist=False, cascade="all, delete-orphan")
+
+
+class LinkedInProfileCache(Base, TimestampMixin):
+    """Stores complete LinkedIn profile data extracted at login."""
+    __tablename__ = "linkedin_profile_cache"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    profile_id: Mapped[int] = mapped_column(ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, unique=True)
+    
+    # Personal Info
+    full_name: Mapped[str] = mapped_column(String(255), default="")
+    headline: Mapped[str] = mapped_column(String(255), default="")  # e.g., "Head of AI ML | 100k+ LinkedIn | AI Agents, RAG, NLP"
+    location: Mapped[str] = mapped_column(String(255), default="")  # e.g., "Berlin, Germany"
+    
+    # Profile Summary
+    about: Mapped[str] = mapped_column(Text, default="")  # Full "About" section
+    
+    # Skills & Expertise
+    skills: Mapped[list[str]] = mapped_column(JSON, default=list)  # List of skills e.g., ["Machine Learning", "Python", "AWS"]
+    expertise_areas: Mapped[list[str]] = mapped_column(JSON, default=list)  # Main expertise areas
+    
+    # Experience
+    current_position: Mapped[str] = mapped_column(String(255), default="")  # Current job title
+    current_company: Mapped[str] = mapped_column(String(255), default="")  # Current company
+    years_of_experience: Mapped[int] = mapped_column(Integer, default=0)
+    work_history: Mapped[list[dict]] = mapped_column(JSON, default=list)  # List of jobs with dates & descriptions
+    
+    # Education
+    education: Mapped[list[dict]] = mapped_column(JSON, default=list)  # List of education entries
+    
+    # Follower/Connection Info
+    follower_count: Mapped[int] = mapped_column(Integer, default=0)
+    connection_count: Mapped[int] = mapped_column(Integer, default=0)
+    
+    # Extract all available metadata
+    full_profile_data: Mapped[dict] = mapped_column(JSON, default=dict)  # Complete parsed profile for reference
+    
+    profile: Mapped["Profile"] = relationship(back_populates="linkedin_cache")
 
 
 class Persona(Base, TimestampMixin):
